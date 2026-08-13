@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RamXCat Terminal Interface v2.6.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glow-color: #39ff14;
+            --bg-color: #050a02;
+            --text-color: #39ff14;
+            --dim-color: #1a6e0d;
+            --accent-color: #ffffff;
+            --shadow-color: rgba(57, 255, 20, 0.2);
+        }
+
+        .theme-amber {
+            --glow-color: #ffb000;
+            --bg-color: #0f0700;
+            --text-color: #ffb000;
+            --dim-color: #9c5c00;
+            --accent-color: #ffffff;
+            --shadow-color: rgba(255, 176, 0, 0.2);
+        }
+
+        .theme-blue {
+            --glow-color: #00d2ff;
+            --bg-color: #000c14;
+            --text-color: #00d2ff;
+            --dim-color: #006080;
+            --accent-color: #ffffff;
+            --shadow-color: rgba(0, 210, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            font-size: 21px;
+            line-height: 1.3;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.5s ease, color 0.3s ease;
+        }
+
+        /* CRT Screen Frame & Glowing Vignette */
+        .crt-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .crt-screen {
+            flex: 1;
+            background: radial-gradient(circle, rgba(16, 32, 10, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+            border: 2px solid var(--dim-color);
+            border-radius: 10px;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9), 0 0 30px var(--shadow-color);
+            padding: 25px;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            text-shadow: 0 0 4px var(--shadow-color);
+        }
+
+        /* Screen overlays: Scanlines, Flicker, Vignette */
+        .crt-screen::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 6px 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .crt-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 11;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.17612; }
+            5% { opacity: 0.24584; }
+            10% { opacity: 0.12658; }
+            15% { opacity: 0.35478; }
+            20% { opacity: 0.19894; }
+            25% { opacity: 0.26123; }
+            30% { opacity: 0.13476; }
+            35% { opacity: 0.38901; }
+            40% { opacity: 0.22312; }
+            45% { opacity: 0.30198; }
+            50% { opacity: 0.18765; }
+            55% { opacity: 0.36471; }
+            60% { opacity: 0.21192; }
+            65% { opacity: 0.29817; }
+            70% { opacity: 0.14238; }
+            75% { opacity: 0.39821; }
+            80% { opacity: 0.25194; }
+            85% { opacity: 0.33471; }
+            90% { opacity: 0.19812; }
+            95% { opacity: 0.37894; }
+            100% { opacity: 0.23123; }
+        }
+
+        .terminal-header {
+            border-bottom: 1px dashed var(--dim-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .system-status {
+            display: flex;
+            gap: 15px;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--glow-color);
+            box-shadow: 0 0 8px var(--glow-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .terminal-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 0;
+        }
+
+        .output-container {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+
+        /* Custom Scrollbar */
+        .crt-screen::-webkit-scrollbar,
+        .output-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .crt-screen::-webkit-scrollbar-track,
+        .output-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .crt-screen::-webkit-scrollbar-thumb,
+        .output-container::-webkit-scrollbar-thumb {
+            background: var(--dim-color);
+            border-radius: 4px;
+        }
+
+        .line {
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .system-line {
+            color: var(--accent-color);
+        }
+
+        .dim-line {
+            color: var(--dim-color);
+        }
+
+        .error-line {
+            color: #ff3333;
+            text-shadow: 0 0 5px rgba(255, 51, 51, 0.4);
+        }
+
+        .input-line {
+            display: flex;
+            align-items: center;
+        }
+
+        .prompt {
+            color: var(--glow-color);
+            margin-right: 10px;
+            user-select: none;
+        }
+
+        .cmd-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            font-size: 21px;
+            outline: none;
+            flex: 1;
+            caret-color: transparent; /* custom cursor */
+            text-shadow: 0 0 4px var(--shadow-color);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background-color: var(--glow-color);
+            box-shadow: 0 0 6px var(--glow-color);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Matrix Rain Canvas overlay */
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: none;
+            opacity: 0.35;
+        }
+
+        /* Game styles */
+        .game-board {
+            font-family: 'Fira Code', monospace;
+            line-height: 1.1;
+            font-size: 16px;
+            margin: 15px 0;
+            border: 1px dashed var(--dim-color);
+            padding: 10px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--dim-color);
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+        }
+
+        .controls-info {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--dim-color);
+        }
+
+        /* Sound control button */
+        .audio-toggle {
+            background: transparent;
+            border: 1px solid var(--dim-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            padding: 2px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .audio-toggle:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 8px var(--glow-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+
+    <div class="crt-container">
+        <div class="crt-screen" id="screen">
+            <canvas id="matrix-canvas"></canvas>
+
+            <div class="terminal-header">
+                <div class="system-status">
+                    <span class="status-indicator">
+                        <span class="status-dot"></span>
+                        SYS STATUS: ONLINE
+                    </span>
+                    <span>ADDR: RAMXCAT.DEV</span>
+                </div>
+                <div>
+                    <button class="audio-toggle" id="audio-btn" onclick="toggleAudio()">AUDIO: OFF</button>
+                </div>
+            </div>
+
+            <div class="terminal-body">
+                <div class="output-container" id="output">
+                    <div class="line dim-line">RAMXCAT [Version 2.6.0]</div>
+                    <div class="line dim-line">(c) 2026 RamXCat Secure Systems. All rights reserved.</div>
+                    <br>
+                    <div class="line">Welcome, administrator. Type <span class="system-line">help</span> to list available commands, <span class="system-line">snake</span> to start game, or <span class="system-line">hack</span> to breach system.</div>
+                    <br>
+                </div>
+
+                <div class="input-line" id="input-area">
+                    <span class="prompt">ramxcat@github:~$</span>
+                    <input type="text" class="cmd-input" id="command-input" autofocus autocomplete="off" spellcheck="false">
+                    <span class="cursor" id="custom-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const cmdInput = document.getElementById('command-input');
+        const screen = document.getElementById('screen');
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const ctx = matrixCanvas.getContext('2d');
+
+        let audioEnabled = false;
+        let audioCtx = null;
+        let isMatrixActive = false;
+        let activeGame = null; // 'snake', 'hack', etc.
+
+        // Standard commands help dictionary
+        const COMMANDS = {
+            'help': 'Displays this help interface',
+            'about': 'Read developers metadata file',
+            'skills': 'Query tech stacks and expertise status',
+            'projects': 'Query system featured project modules',
+            'snake': 'Launch classic terminal-based Snake game',
+            'hack': 'Simulate hacking a secure mainframe',
+            'matrix': 'Launch Matrix Digital Rain screensaver',
+            'theme': 'Switch color scheme [theme green / theme amber / theme blue]',
+            'clear': 'Clear console buffer screen',
+            'exit': 'Return to standard GitHub user page'
+        };
+
+        // Project database
+        const PROJECTS = [
+            { name: 'Connecto', desc: 'Remote laptop controllers via Android phone client.', lang: 'Kotlin / Android', url: 'https://github.com/RamXCat/Connecto' },
+            { name: 'Portfolio Terminal', desc: 'High-fidelity terminal portfolio showcasing full-stack infrastructure.', lang: 'TypeScript', url: 'https://github.com/RamXCat/portfolio-terminal' },
+            { name: 'Waste Collection Platform', desc: 'Civic tech app managing community garbage/recycle pickups.', lang: 'PHP', url: 'https://github.com/RamXCat/waste-collection-website' },
+            { name: 'Cowrie Dashboard', desc: 'Adaptive SSH honeypot real-time dashboard.', lang: 'Python / Flask', url: 'https://github.com/RamXCat' }
+        ];
+
+        // Synthesize retro sounds using Web Audio API
+        function playBeep(freq, duration, type = 'sine') {
+            if (!audioEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.value = freq;
+                
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {
+                console.error("Audio error", e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const btn = document.getElementById('audio-btn');
+            btn.innerText = `AUDIO: ${audioEnabled ? 'ON' : 'OFF'}`;
+            if (audioEnabled) {
+                playBeep(440, 0.1);
+            }
+        }
+
+        // Handle keyboard sounds & keystrokes
+        cmdInput.addEventListener('keydown', (e) => {
+            // Typing key sound
+            if (e.key.length === 1) {
+                playBeep(600 + Math.random() * 200, 0.03, 'triangle');
+            } else if (e.key === 'Backspace') {
+                playBeep(400, 0.03, 'triangle');
+            }
+        });
+
+        cmdInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const rawCmd = cmdInput.value;
+                cmdInput.value = '';
+                handleCommand(rawCmd);
+            }
+        });
+
+        // Ensure input field is always focused on screen click
+        document.addEventListener('click', () => {
+            if (!isMatrixActive && activeGame === null) {
+                cmdInput.focus();
+            }
+        });
+
+        function printLine(text, styleClass = '') {
+            const div = document.createElement('div');
+            div.className = `line ${styleClass}`;
+            div.innerHTML = text;
+            output.appendChild(div);
+            screen.scrollTop = screen.scrollHeight;
+        }
+
+        function handleCommand(rawCmd) {
+            const trimmed = rawCmd.trim();
+            if (!trimmed) return;
+
+            printLine(`ramxcat@github:~$ ${trimmed}`, 'system-line');
+
+            const parts = trimmed.split(/\s+/);
+            const cmd = parts[0].toLowerCase();
+            const args = parts.slice(1);
+
+            playBeep(300, 0.08);
+
+            switch(cmd) {
+                case 'help':
+                    printHelp();
+                    break;
+                case 'about':
+                    printAbout();
+                    break;
+                case 'skills':
+                    printSkills();
+                    break;
+                case 'projects':
+                    printProjects();
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    break;
+                case 'theme':
+                    setTheme(args[0]);
+                    break;
+                case 'matrix':
+                    startMatrix();
+                    break;
+                case 'snake':
+                    startSnakeGame();
+                    break;
+                case 'hack':
+                    startHackGame();
+                    break;
+                case 'exit':
+                    printLine("Redirecting to GitHub profile page...");
+                    setTimeout(() => {
+                        window.location.href = "https://github.com/RamXCat";
+                    }, 1000);
+                    break;
+                default:
+                    playBeep(150, 0.2, 'sawtooth');
+                    printLine(`Command not found: "${cmd}". Type 'help' for commands list.`, 'error-line');
+            }
+        }
+
+        function printHelp() {
+            let table = '\nAvailable operations:\n';
+            for (const [name, desc] of Object.entries(COMMANDS)) {
+                table += `  <span class="system-line">${name.padEnd(12)}</span> - ${desc}\n`;
+            }
+            printLine(table);
+        }
+
+        function printAbout() {
+            const bio = `
+========================================
+ADMIN PROFILE: RAMXCAT
+========================================
+Role: Full-Stack & Android Systems Developer
+Origin: India
+Focus: Interactive systems, cyberdefenses, and CLI architectures.
+Status: Seeking high-impact professional projects.
+Motto: "Build tools that simplify, protect, and empower."
+`;
+            printLine(bio);
+        }
+
+        function printSkills() {
+            const skills = [
+                { name: 'Kotlin/Android', level: 9 },
+                { name: 'Java/Spring', level: 8.5 },
+                { name: 'TypeScript/JS', level: 8 },
+                { name: 'Python/Flask', level: 8 },
+                { name: 'PHP/MySQL', level: 7.5 },
+                { name: 'Docker/Linux', level: 8.5 }
+            ];
+
+            let display = '\nSystem capabilities loading...\n';
+            skills.forEach(s => {
+                const filled = Math.round(s.level);
+                const bar = '[' + '='.repeat(filled) + ' '.repeat(10 - filled) + ']';
+                display += `  ${s.name.padEnd(15)} : ${bar} ${(s.level * 10)}%\n`;
+            });
+            printLine(display);
+        }
+
+        function printProjects() {
+            let display = '\nQuerying repository registry:\n\n';
+            PROJECTS.forEach((p, idx) => {
+                display += `  [${idx}] <span class="system-line">${p.name}</span> (${p.lang})\n`;
+                display += `      Description: ${p.desc}\n`;
+                display += `      Source URL: <a href="${p.url}" target="_blank" style="color: inherit;">${p.url}</a>\n\n`;
+            });
+            printLine(display);
+        }
+
+        function setTheme(color) {
+            document.body.classList.remove('theme-amber', 'theme-blue');
+            if (color === 'amber') {
+                document.body.classList.add('theme-amber');
+                printLine("Theme configuration updated to: AMBER PHOSPHOR");
+            } else if (color === 'blue') {
+                document.body.classList.add('theme-blue');
+                printLine("Theme configuration updated to: COBALT BEAM");
+            } else {
+                printLine("Theme configuration updated to: GREEN PHOSPHOR");
+            }
+            playBeep(880, 0.1);
+        }
+
+        // Screensaver Matrix Code
+        function startMatrix() {
+            isMatrixActive = true;
+            matrixCanvas.style.display = 'block';
+            document.getElementById('input-area').style.display = 'none';
+            output.style.display = 'none';
+
+            matrixCanvas.width = screen.clientWidth;
+            matrixCanvas.height = screen.clientHeight;
+
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=<>#%&@";
+            const fontSize = 16;
+            const columns = matrixCanvas.width / fontSize;
+
+            const rainDrops = [];
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = 1;
+            }
+
+            function draw() {
+                if (!isMatrixActive) return;
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+                ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--glow-color');
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+
+            // Exit matrix on any keypress
+            const stopMatrix = () => {
+                isMatrixActive = false;
+                matrixCanvas.style.display = 'none';
+                document.getElementById('input-area').style.display = 'flex';
+                output.style.display = 'block';
+                cmdInput.focus();
+                document.removeEventListener('keydown', stopMatrix);
+                document.removeEventListener('click', stopMatrix);
+                playBeep(440, 0.1);
+            };
+
+            setTimeout(() => {
+                document.addEventListener('keydown', stopMatrix);
+                document.addEventListener('click', stopMatrix);
+            }, 100);
+        }
+
+        // ==========================================
+        // SNAKE GAME MODULE (CLI implementation)
+        // ==========================================
+        function startSnakeGame() {
+            activeGame = 'snake';
+            document.getElementById('input-area').style.display = 'none';
+
+            const gameDiv = document.createElement('div');
+            gameDiv.className = 'game-board';
+            output.appendChild(gameDiv);
+            screen.scrollTop = screen.scrollHeight;
+
+            const width = 24;
+            const height = 12;
+            let snake = [{x: 10, y: 5}, {x: 9, y: 5}, {x: 8, y: 5}];
+            let dx = 1;
+            let dy = 0;
+            let food = {x: 15, y: 5};
+            let score = 0;
+            let speed = 150;
+            let gameInterval = null;
+
+            function drawBoard() {
+                let board = '';
+                board += `<div class="game-header"><span>GAME: RETRO-SNAKE</span><span>SCORE: ${score}</span></div>`;
+                board += '+'.padEnd(width + 1, '-') + '+\n';
+                
+                for (let y = 0; y < height; y++) {
+                    board += '|';
+                    for (let x = 0; x < width; x++) {
+                        if (snake.some(segment => segment.x === x && segment.y === y)) {
+                            board += 'O'; // Snake body
+                        } else if (food.x === x && food.y === y) {
+                            board += '*'; // Food
+                        } else {
+                            board += ' ';
+                        }
+                    }
+                    board += '|\n';
+                }
+                
+                board += '+'.padEnd(width + 1, '-') + '+\n';
+                board += '<div class="controls-info">Controls: WASD / Arrows. Press ESC to quit.</div>';
+                gameDiv.innerHTML = board;
+                screen.scrollTop = screen.scrollHeight;
+            }
+
+            function placeFood() {
+                while(true) {
+                    const fx = Math.floor(Math.random() * width);
+                    const fy = Math.floor(Math.random() * height);
+                    if (!snake.some(seg => seg.x === fx && seg.y === fy)) {
+                        food = {x: fx, y: fy};
+                        break;
+                    }
+                }
+            }
+
+            function update() {
+                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+                // Collision detection (walls & self)
+                if (head.x < 0 || head.x >= width || head.y < 0 || head.y >= height ||
+                    snake.some(seg => seg.x === head.x && seg.y === head.y)) {
+                    // Game Over
+                    clearInterval(gameInterval);
+                    playBeep(120, 0.4, 'sawtooth');
+                    gameDiv.innerHTML += '<div style="color: #ff3333; margin-top: 10px;">GAME OVER. Press ESC to return.</div>';
+                    return;
+                }
+
+                snake.unshift(head);
+
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    playBeep(880, 0.08, 'sine');
+                    placeFood();
+                } else {
+                    snake.pop();
+                }
+
+                drawBoard();
+            }
+
+            function handleInput(e) {
+                switch(e.key.toLowerCase()) {
+                    case 'w': case 'arrowup':
+                        if (dy === 0) { dx = 0; dy = -1; playBeep(600, 0.02); }
+                        break;
+                    case 's': case 'arrowdown':
+                        if (dy === 0) { dx = 0; dy = 1; playBeep(600, 0.02); }
+                        break;
+                    case 'a': case 'arrowleft':
+                        if (dx === 0) { dx = -1; dy = 0; playBeep(600, 0.02); }
+                        break;
+                    case 'd': case 'arrowright':
+                        if (dx === 0) { dx = 1; dy = 0; playBeep(600, 0.02); }
+                        break;
+                    case 'escape':
+                        quitGame();
+                        break;
+                }
+                e.preventDefault();
+            }
+
+            function quitGame() {
+                clearInterval(gameInterval);
+                document.removeEventListener('keydown', handleInput);
+                gameDiv.remove();
+                activeGame = null;
+                document.getElementById('input-area').style.display = 'flex';
+                cmdInput.focus();
+                printLine("Returned from Snake console module.");
+                playBeep(440, 0.1);
+            }
+
+            document.addEventListener('keydown', handleInput);
+            gameInterval = setInterval(update, speed);
+            drawBoard();
+        }
+
+        // ==========================================
+        // MAINMainframe Cyber-Hacker Breach Game
+        // ==========================================
+        function startHackGame() {
+            activeGame = 'hack';
+            document.getElementById('input-area').style.display = 'none';
+
+            const gameDiv = document.createElement('div');
+            gameDiv.className = 'game-board';
+            output.appendChild(gameDiv);
+            screen.scrollTop = screen.scrollHeight;
+
+            const words = ["SECURITY", "FIREWALL", "DATALINK", "MAINFRAME", "PASSWORD", "TERMINAL", "ENCRYPT", "DECODING", "DATABASE"];
+            const secret = words[Math.floor(Math.random() * words.length)];
+            let attempts = 4;
+
+            // Generate hex noise
+            function renderHackingScreen() {
+                let html = '<div class="game-header"><span>SECURE MAINFRAME BREACH PROTOCOL</span></div>';
+                html += `Attempts remaining: ${'■ '.repeat(attempts)}\n\n`;
+
+                words.forEach(w => {
+                    const noiseLeft = Math.floor(Math.random() * 9999).toString(16).padStart(4, '0').toUpperCase();
+                    html += `0x${noiseLeft}: <span class="hack-word" style="cursor: pointer; text-decoration: underline;" onclick="window.guessWord('${w}')">${w}</span>\n`;
+                });
+
+                html += '\n<div class="controls-info">Select a target string payload. Press ESC to quit.</div>';
+                gameDiv.innerHTML = html;
+                screen.scrollTop = screen.scrollHeight;
+            }
+
+            window.guessWord = function(word) {
+                if (attempts <= 0) return;
+
+                if (word === secret) {
+                    playBeep(988, 0.15);
+                    setTimeout(() => playBeep(1318, 0.25), 100);
+                    gameDiv.innerHTML = `
+                        <div style="color: var(--accent-color); font-weight: bold;">ACCESS GRANTED. DECRYPTING SYSTEMS...</div>
+                        <div>Decoded Mainframe Key: MD5_3c4d5e...</div>
+                        <div style="margin-top: 10px;">Press ESC to complete protocol.</div>
+                    `;
+                } else {
+                    attempts--;
+                    if (attempts <= 0) {
+                        playBeep(150, 0.4, 'sawtooth');
+                        gameDiv.innerHTML = `
+                            <div style="color: #ff3333;">ACCESS DENIED. MAIN LOCKDOWN INITIATED.</div>
+                            <div>System Lock. Please return.</div>
+                            <div style="margin-top: 10px;">Press ESC to return.</div>
+                        `;
+                    } else {
+                        // Calculate matching characters
+                        let matchCount = 0;
+                        for (let i = 0; i < secret.length; i++) {
+                            if (word[i] === secret[i]) matchCount++;
+                        }
+                        playBeep(330, 0.15, 'sawtooth');
+                        alert(`Breach check: ${word} -> Likeness match: ${matchCount}/${secret.length}`);
+                        renderHackingScreen();
+                    }
+                }
+            };
+
+            function handleInput(e) {
+                if (e.key === 'Escape') {
+                    quitHack();
+                }
+            }
+
+            function quitHack() {
+                document.removeEventListener('keydown', handleInput);
+                window.guessWord = null;
+                gameDiv.remove();
+                activeGame = null;
+                document.getElementById('input-area').style.display = 'flex';
+                cmdInput.focus();
+                printLine("Returned from mainframe security protocols.");
+                playBeep(440, 0.1);
+            }
+
+            document.addEventListener('keydown', handleInput);
+            renderHackingScreen();
+        }
+    </script>
+</body>
+</html>
