@@ -267,27 +267,62 @@
         /* Game styles */
         .game-board {
             font-family: 'Fira Code', monospace;
-            line-height: 1.1;
+            line-height: 1.15;
             font-size: 16px;
             margin: 15px 0;
             border: 1px dashed var(--dim-color);
-            padding: 10px;
+            padding: 15px;
             display: inline-block;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 15px var(--shadow-color);
+            border-radius: 6px;
+            max-width: 100%;
         }
 
         .game-header {
             display: flex;
             justify-content: space-between;
             border-bottom: 1px dashed var(--dim-color);
-            margin-bottom: 8px;
-            padding-bottom: 4px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            font-weight: bold;
         }
 
         .controls-info {
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 14px;
             color: var(--dim-color);
+            border-top: 1px dashed var(--dim-color);
+            padding-top: 6px;
+        }
+
+        /* Mobile controls */
+        .mobile-controls {
+            display: none;
+            grid-template-columns: repeat(3, 50px);
+            grid-template-rows: repeat(3, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .mobile-btn {
+            background: transparent;
+            border: 1px solid var(--dim-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 5px;
+            user-select: none;
+        }
+
+        .mobile-btn:active {
+            background: var(--text-color);
+            color: var(--bg-color);
         }
 
         /* Sound control button */
@@ -636,7 +671,21 @@ Motto: "Build tools that simplify, protect, and empower."
             const gameDiv = document.createElement('div');
             gameDiv.className = 'game-board';
             output.appendChild(gameDiv);
-            screen.scrollTop = screen.scrollHeight;
+            
+            // Create mobile layout controls if screen is narrow
+            const isMobile = window.innerWidth < 768;
+            let mobileControlsDiv = null;
+            if (isMobile) {
+                mobileControlsDiv = document.createElement('div');
+                mobileControlsDiv.className = 'mobile-controls';
+                mobileControlsDiv.style.display = 'grid';
+                mobileControlsDiv.innerHTML = `
+                    <div></div><button class="mobile-btn" id="m-up">▲</button><div></div>
+                    <button class="mobile-btn" id="m-left">◀</button><button class="mobile-btn" id="m-esc">⎋</button><button class="mobile-btn" id="m-right">▶</button>
+                    <div></div><button class="mobile-btn" id="m-down">▼</button><div></div>
+                `;
+                output.appendChild(mobileControlsDiv);
+            }
 
             const width = 24;
             const height = 12;
@@ -670,6 +719,7 @@ Motto: "Build tools that simplify, protect, and empower."
                 board += '+'.padEnd(width + 1, '-') + '+\n';
                 board += '<div class="controls-info">Controls: WASD / Arrows. Press ESC to quit.</div>';
                 gameDiv.innerHTML = board;
+                gameDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 screen.scrollTop = screen.scrollHeight;
             }
 
@@ -694,6 +744,7 @@ Motto: "Build tools that simplify, protect, and empower."
                     clearInterval(gameInterval);
                     playBeep(120, 0.4, 'sawtooth');
                     gameDiv.innerHTML += '<div style="color: #ff3333; margin-top: 10px;">GAME OVER. Press ESC to return.</div>';
+                    gameDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     return;
                 }
 
@@ -711,30 +762,41 @@ Motto: "Build tools that simplify, protect, and empower."
             }
 
             function handleInput(e) {
-                switch(e.key.toLowerCase()) {
-                    case 'w': case 'arrowup':
+                const key = e.key ? e.key.toLowerCase() : e;
+                switch(key) {
+                    case 'w': case 'arrowup': case 'up':
                         if (dy === 0) { dx = 0; dy = -1; playBeep(600, 0.02); }
                         break;
-                    case 's': case 'arrowdown':
+                    case 's': case 'arrowdown': case 'down':
                         if (dy === 0) { dx = 0; dy = 1; playBeep(600, 0.02); }
                         break;
-                    case 'a': case 'arrowleft':
+                    case 'a': case 'arrowleft': case 'left':
                         if (dx === 0) { dx = -1; dy = 0; playBeep(600, 0.02); }
                         break;
-                    case 'd': case 'arrowright':
+                    case 'd': case 'arrowright': case 'right':
                         if (dx === 0) { dx = 1; dy = 0; playBeep(600, 0.02); }
                         break;
-                    case 'escape':
+                    case 'escape': case 'esc':
                         quitGame();
                         break;
                 }
-                e.preventDefault();
+                if (e.preventDefault) e.preventDefault();
+            }
+
+            // Bind mobile controls
+            if (mobileControlsDiv) {
+                document.getElementById('m-up').onclick = () => handleInput('up');
+                document.getElementById('m-down').onclick = () => handleInput('down');
+                document.getElementById('m-left').onclick = () => handleInput('left');
+                document.getElementById('m-right').onclick = () => handleInput('right');
+                document.getElementById('m-esc').onclick = () => handleInput('esc');
             }
 
             function quitGame() {
                 clearInterval(gameInterval);
                 document.removeEventListener('keydown', handleInput);
                 gameDiv.remove();
+                if (mobileControlsDiv) mobileControlsDiv.remove();
                 activeGame = null;
                 document.getElementById('input-area').style.display = 'flex';
                 cmdInput.focus();
@@ -757,8 +819,7 @@ Motto: "Build tools that simplify, protect, and empower."
             const gameDiv = document.createElement('div');
             gameDiv.className = 'game-board';
             output.appendChild(gameDiv);
-            screen.scrollTop = screen.scrollHeight;
-
+            
             const words = ["SECURITY", "FIREWALL", "DATALINK", "MAINFRAME", "PASSWORD", "TERMINAL", "ENCRYPT", "DECODING", "DATABASE"];
             const secret = words[Math.floor(Math.random() * words.length)];
             let attempts = 4;
@@ -775,6 +836,7 @@ Motto: "Build tools that simplify, protect, and empower."
 
                 html += '\n<div class="controls-info">Select a target string payload. Press ESC to quit.</div>';
                 gameDiv.innerHTML = html;
+                gameDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 screen.scrollTop = screen.scrollHeight;
             }
 
@@ -809,6 +871,7 @@ Motto: "Build tools that simplify, protect, and empower."
                         renderHackingScreen();
                     }
                 }
+                gameDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             };
 
             function handleInput(e) {
