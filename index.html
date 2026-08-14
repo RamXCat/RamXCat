@@ -25,6 +25,7 @@
             <a href="#about" class="active">About</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
+            <a href="#sandbox">Sandbox</a>
             <a href="#contact">Contact</a>
         </nav>
         <button class="header-cta" onclick="scrollToSection('contact')">Let's Talk</button>
@@ -347,6 +348,49 @@
             </div>
         </section>
 
+        <!-- Sandbox/Arcade Section -->
+        <section id="sandbox">
+            <div class="reveal">
+                <span class="section-badge">Interactive</span>
+                <h2 class="section-title">Playable <span class="gradient-text">Sandbox</span></h2>
+            </div>
+            <div class="sandbox-wrapper">
+                <div class="sandbox-left reveal">
+                    <p>
+                        A developer profile shouldn't just present static metrics—it should offer interaction. This lightweight HTML5 Canvas Snake Game is written entirely in native JS and optimized for modern web browsers.
+                    </p>
+                    <p>
+                        Use the <strong>arrow keys</strong> on your keyboard or the <strong>soft control pad</strong> on mobile/tablet devices to navigate the snake. Collect glowing particles to grow your snake and increase your telemetry score!
+                    </p>
+                </div>
+                <div class="sandbox-right reveal delay-2">
+                    <div class="arcade-card">
+                        <div class="game-header">
+                            <span>🎮 SNAKE TELEMETRY</span>
+                            <div class="game-score-container">
+                                <div>Score: <span id="current-score">0</span></div>
+                                <div>High: <span id="high-score">0</span></div>
+                            </div>
+                        </div>
+                        <div class="canvas-container">
+                            <canvas id="game-canvas" width="300" height="300"></canvas>
+                            <div id="game-overlay" class="game-overlay">
+                                <div class="game-overlay-title">SNAKE GAME</div>
+                                <div class="game-overlay-desc">Press Start or any direction key to begin.</div>
+                                <button class="arcade-btn btn-start" onclick="startGame()">Start Game</button>
+                            </div>
+                        </div>
+                        <div class="mobile-controls">
+                            <button class="control-btn btn-up" id="ctrl-up"><i class="fa-solid fa-chevron-up"></i></button>
+                            <button class="control-btn btn-left" id="ctrl-left"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="control-btn btn-right" id="ctrl-right"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="control-btn btn-down" id="ctrl-down"><i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact">
             <div class="contact-card reveal">
@@ -489,6 +533,215 @@
                 const pct = f.getAttribute('data-percent');
                 f.style.width = pct;
             });
+        // ==========================================================================
+        // SNAKE GAME ENGINE
+        // ==========================================================================
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('game-overlay');
+        const currentScoreEl = document.getElementById('current-score');
+        const highScoreEl = document.getElementById('high-score');
+
+        const gridSize = 15;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [];
+        let food = { x: 0, y: 0 };
+        let dx = gridSize;
+        let dy = 0;
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('snake-high-score') || '0');
+        let gameInterval = null;
+        let isGameRunning = false;
+
+        highScoreEl.textContent = highScore;
+
+        function startGame() {
+            if (isGameRunning) return;
+            overlay.classList.add('hidden');
+            isGameRunning = true;
+            score = 0;
+            currentScoreEl.textContent = score;
+            dx = gridSize;
+            dy = 0;
+            
+            // Initial snake position (middle of canvas)
+            snake = [
+                { x: gridSize * 5, y: gridSize * 10 },
+                { x: gridSize * 4, y: gridSize * 10 },
+                { x: gridSize * 3, y: gridSize * 10 }
+            ];
+            
+            generateFood();
+            
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(gameStep, 100);
+        }
+
+        function generateFood() {
+            food.x = Math.floor(Math.random() * tileCount) * gridSize;
+            food.y = Math.floor(Math.random() * tileCount) * gridSize;
+            
+            // Ensure food doesn't spawn on top of the snake
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    break;
+                }
+            }
+        }
+
+        function gameStep() {
+            // Move snake head
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            
+            // Check collision with walls or self
+            if (checkCollision(head)) {
+                endGame();
+                return;
+            }
+            
+            snake.unshift(head);
+            
+            // Check if snake ate food
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                currentScoreEl.textContent = score;
+                if (score > highScore) {
+                    highScore = score;
+                    highScoreEl.textContent = highScore;
+                    localStorage.setItem('snake-high-score', highScore.toString());
+                }
+                generateFood();
+            } else {
+                snake.pop();
+            }
+            
+            draw();
+        }
+
+        function checkCollision(pos) {
+            // Wall collision
+            if (pos.x < 0 || pos.x >= canvas.width || pos.y < 0 || pos.y >= canvas.height) {
+                return true;
+            }
+            // Self collision
+            for (let segment of snake) {
+                if (pos.x === segment.x && pos.y === segment.y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function draw() {
+            // Clear board
+            ctx.fillStyle = '#090d16';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid pattern (subtle)
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+            for (let i = 0; i < tileCount; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * gridSize, 0);
+                ctx.lineTo(i * gridSize, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i * gridSize);
+                ctx.lineTo(canvas.width, i * gridSize);
+                ctx.stroke();
+            }
+
+            // Draw food (glowing target)
+            ctx.fillStyle = '#d946ef';
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#d946ef';
+            ctx.beginPath();
+            ctx.arc(food.x + gridSize / 2, food.y + gridSize / 2, gridSize / 2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw snake (gradient nodes)
+            ctx.shadowBlur = 0; // reset shadow
+            snake.forEach((segment, index) => {
+                // Gradient effect down the length of the snake
+                const ratio = index / snake.length;
+                ctx.fillStyle = index === 0 ? '#818cf8' : `rgba(99, 102, 241, ${1 - ratio * 0.6})`;
+                
+                // Rounded rectangle segments
+                const x = segment.x + 1;
+                const y = segment.y + 1;
+                const size = gridSize - 2;
+                ctx.beginPath();
+                ctx.roundRect(x, y, size, size, 4);
+                ctx.fill();
+            });
+        }
+
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            overlay.classList.remove('hidden');
+            overlay.querySelector('.game-overlay-title').textContent = 'GAME OVER';
+            overlay.querySelector('.game-overlay-desc').textContent = `Final Score: ${score}`;
+            overlay.querySelector('.btn-start').textContent = 'Play Again';
+        }
+
+        // Keyboard handler
+        window.addEventListener('keydown', (e) => {
+            if (!isGameRunning && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                startGame();
+                return;
+            }
+            
+            switch (e.key) {
+                case 'ArrowUp':
+                    if (dy === 0) { dx = 0; dy = -gridSize; }
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                    if (dy === 0) { dx = 0; dy = gridSize; }
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                    if (dx === 0) { dx = -gridSize; dy = 0; }
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    if (dx === 0) { dx = gridSize; dy = 0; }
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        // Mobile touch control listeners
+        document.getElementById('ctrl-up').addEventListener('click', () => {
+            if (!isGameRunning) startGame();
+            else if (dy === 0) { dx = 0; dy = -gridSize; }
+        });
+        document.getElementById('ctrl-down').addEventListener('click', () => {
+            if (!isGameRunning) startGame();
+            else if (dy === 0) { dx = 0; dy = gridSize; }
+        });
+        document.getElementById('ctrl-left').addEventListener('click', () => {
+            if (!isGameRunning) startGame();
+            else if (dx === 0) { dx = -gridSize; dy = 0; }
+        });
+        document.getElementById('ctrl-right').addEventListener('click', () => {
+            if (!isGameRunning) startGame();
+            else if (dx === 0) { dx = gridSize; dy = 0; }
+        });
+
+        // Add spotlight support for arcade card and sandbox card
+        const sandboxCards = document.querySelectorAll('.arcade-card');
+        sandboxCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
         }
     </script>
 </body>
