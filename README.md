@@ -1,70 +1,80 @@
-# 🖥️ ramxcat@github:~$ neofetch
+# 🖥️ ramxcat@github:~$ neofetch --profile
 
 <div align="center">
 
-```
+```text
       / \__/\         ramxcat@github
      /  o o  \        --------------
-    (    T    )       OS: RamOS v2.6.0 (64-bit)
-     \  `-'  /        Host: Full-Stack & Android Developer
+    (    T    )       OS: RamOS v2.7.0 (64-bit)
+     \  `-'  /        Host: Systems & Full-Stack Developer
      /   _   \        Kernel: Kotlin, Java, TypeScript, Python
     /   / \   \       Uptime: 24 years
-   /   /   \   \      Shell: bash (interactive)
-  /___/     \___\     Resolution: 1920x1080 (Visionary)
-                      Terminal: Alacritty (Retro CRT Theme)
-                      CPU: Brain Core i9 @ 5.0GHz
+   /   /   \   \      Shell: zsh (interactive)
+  /___/     \___\     Resolution: 3840x2160 (Ultra-Wide)
+                      Terminal: Alacritty (Urbane Core Theme)
+                      CPU: Brain Core i9 @ 5.2GHz
                       Memory: 64GB / Infinite Ideas
 ```
 
 ---
 
-[![Play Terminal Game](https://img.shields.io/badge/▶_LAUNCH_GAME.EXE-PLAY_RETRO_TERMINAL-39ff14?style=for-the-badge&logo=dosbox&logoColor=black&labelColor=000000)](https://ramxcat.github.io/RamXCat/)
+[![Launch System Portfolio](https://img.shields.io/badge/▶_LAUNCH_SYSTEM.EXE-PLAY_RETRO_PORTFOLIO-bf77f6?style=for-the-badge&logo=gnutelevision&logoColor=black&labelColor=000000)](https://ramxcat.github.io/RamXCat/)
 
-*Click the button above to launch an interactive retro terminal directly in your browser, containing playable CLI games (Snake, Cyber-Hacker) and dynamic command search!*
+*Click the button above to launch the interactive split-pane retro portfolio in your browser, featuring terminal-controlled scrolling, multi-theme variables switcher, and playable CLI arcade games!*
 
 </div>
 
 ---
 
-### 📂 directory-listing /about-me/
+### 📂 /identity/about-me
 
 ```bash
 ramxcat@github:~$ cat bio.md
 ```
-> I am a Full-Stack and Android developer focused on building interactive, high-fidelity systems, clean CLI interfaces, and robust system utilities. Currently engineering an **Adaptive SSH Honeypot Dashboard** to profile cyber threats in real-time.
+> I am a **Systems and Full-Stack Engineer** specializing in bridging the gap between back-end infrastructure (Java/SpringBoot, Kotlin, Python) and front-end interface systems. Currently engineering an **Adaptive SSH Honeypot Log Analyzer** to profile cyber intrusion metrics in real-time, and mobile-to-host controller sockets.
 
 ```bash
-ramxcat@github:~$ cat skills.json
+ramxcat@github:~$ systemctl status current-status
 ```
-```json
-{
-  "languages": ["Kotlin", "Java", "TypeScript", "JavaScript", "PHP", "Python", "SQL"],
-  "frameworks": ["Android SDK", "Spring Boot", "React", "Node.js", "Flask"],
-  "tools": ["Git", "Docker", "Linux", "MySQL", "SQLite", "Nginx"]
-}
-```
+* 🔭 I’m currently working on the **Cowrie Threat Monitoring Dashboard** and **Connecto Host Controller**.
+* 🌱 I’m currently diving deeper into **Systems Security, Docker containers orchestration, and Web Audio synthesizers**.
+* 💬 Ask me about **Kotlin/Android, Spring Boot architecture, or retro shell systems**.
 
 ---
 
-### 🚀 systemctl status --active featured-projects
+### 🛠️ /capabilities/tech-stack
+
+```bash
+ramxcat@github:~$ list-skills --verbose
+```
+
+| Domain | Technologies |
+| :--- | :--- |
+| **Languages** | ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white) ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white) ![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square&logo=postgresql&logoColor=white) |
+| **Frameworks** | ![Android](https://img.shields.io/badge/Android_SDK-3DDC84?style=flat-square&logo=android&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?style=flat-square&logo=flask&logoColor=white) |
+| **Tools & Platforms** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white) ![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat-square&logo=nginx&logoColor=white) |
+
+---
+
+### 🚀 /repository-cluster/active-services
 
 ```bash
 ramxcat@github:~$ list-projects --featured
 ```
 
-| Command | Service / Repository | Description | Status |
+| Service / Repository | Stack / Tags | Operational Description | Status |
 | :--- | :--- | :--- | :--- |
-| `connecto --start` | [🔌 Connecto](https://github.com/RamXCat/Connecto) | Remote laptop controller via Android (Shutdown, restart, lock). | `● active (running)` |
-| `portfolio --cli` | [🖥️ Portfolio Terminal](https://github.com/RamXCat/portfolio-terminal) | Interactive CLI-style architecture portfolio. | `● active (online)` |
-| `waste-manage --web` | [🗑️ Waste Collection](https://github.com/RamXCat/waste-collection-website) | Civic platform managing community recycling requests. | `● active (loaded)` |
-| `honeypot --monitor` | [🛡️ Cowrie Dashboard](https://github.com/RamXCat) | AI-powered honeypot log analyst & visualization suite. | `● active (listening)` |
+| [🔌 Connecto](https://github.com/RamXCat/Connecto) | `Kotlin` `Android` `Socket` | Remote laptop controller via Android (start, lock, shutdown, metrics). | `● active (running)` |
+| [🖥️ Portfolio Terminal](https://github.com/RamXCat/portfolio-terminal) | `TypeScript` `HTML/CSS` | Interactive split-pane command line portfolio dashboard. | `● active (online)` |
+| [🗑️ Waste Collection](https://github.com/RamXCat/waste-collection-website) | `PHP` `MySQL` `CivicTech` | Civic technology platform coordinating local community recycling requests. | `● active (loaded)` |
+| [🛡️ Cowrie Dashboard](https://github.com/RamXCat) | `Python` `Flask` `Security` | Real-time SSH honeypot log analyst, telemetry metrics, and geolocation map. | `● active (listening)` |
 
 ---
 
-### 🎮 contribution-snake --play
+### 🎮 /contribution-snake --eat contributions
 
 ```bash
-ramxcat@github:~$ snake --eat contributions
+ramxcat@github:~$ snake --feed contributions --speed fast
 ```
 
 <div align="center">
@@ -80,28 +90,27 @@ ramxcat@github:~$ snake --eat contributions
 
 ---
 
-### 📈 telemetry --report
-
-<div align="center">
+### 📈 /telemetry/system-status
 
 ```bash
-ramxcat@github:~$ curl -s /stats/report
+ramxcat@github:~$ curl -s /metrics/report
 ```
+
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=RamXCat&show_icons=true&theme=calm&hide_border=true&bg_color=0d1117&title_color=39ff14&icon_color=39ff14&text_color=c9d1d9&include_all_commits=true" height="150" alt="GitHub Stats"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RamXCat&layout=compact&theme=calm&hide_border=true&bg_color=0d1117&title_color=39ff14&text_color=c9d1d9&langs_count=6" height="150" alt="Top Languages"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=RamXCat&show_icons=true&hide_border=true&bg_color=0a0b10&title_color=bf77f6&icon_color=bf77f6&text_color=8b949e&include_all_commits=true" height="150" alt="GitHub Stats"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RamXCat&layout=compact&hide_border=true&bg_color=0a0b10&title_color=bf77f6&text_color=8b949e&langs_count=6" height="150" alt="Top Languages"/>
 </p>
 
 ```bash
 ramxcat@github:~$ finger ramxcat
 ```
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=39ff14&labelColor=000000)](https://github.com/RamXCat)
-[![Mail](https://img.shields.io/badge/Email-Contact-39ff14?style=for-the-badge&logo=gmail&logoColor=black&labelColor=000000)](mailto:your-email@example.com)
-
-</div>
-
-<br/>
 
 <div align="center">
-  <sub>Press <b>Ctrl+C</b> to exit profile inspection.</sub>
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=bf77f6&labelColor=000000)](https://github.com/RamXCat)
+[![Mail](https://img.shields.io/badge/Email-Contact-bf77f6?style=for-the-badge&logo=gmail&logoColor=black&labelColor=000000)](mailto:your-email@example.com)
+
+<br/>
+<sub>Press <b>Ctrl+C</b> to terminate profile inspection session.</sub>
+
 </div>
