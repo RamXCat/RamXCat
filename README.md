@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Plus+Jakarta+Sans&weight=800&size=34&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&width=600&height=70&lines=%E2%9A%A1+RamXCat;Full-Stack+Architect;Android+Systems+Engineer" alt="Typing SVG"/>
+</p>
+
 # ⚡ Full-Stack Developer • Systems Architect
 I'm Ram, a full-stack engineer and native mobile developer focused on scalable APIs, secure system utilities, and socket stream protocols.
 I build systems that:

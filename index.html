@@ -10,8 +10,13 @@
 </head>
 <body>
 
+    <!-- Floating Background Lighting Blobs -->
+    <div class="glow-blob blob-1"></div>
+    <div class="glow-blob blob-2"></div>
+    <div class="glow-blob blob-3"></div>
+
     <!-- Header Navigation -->
-    <header>
+    <header id="main-header">
         <div class="logo" onclick="scrollToTop()">
             <div class="logo-dot"></div>
             <span>RAMXCAT</span>
@@ -31,7 +36,7 @@
         <!-- Hero Section -->
         <section id="hero">
             <div class="hero-wrapper">
-                <div class="hero-left">
+                <div class="hero-left reveal">
                     <span class="section-badge">Full-Stack Engineer</span>
                     <h1 class="hero-title-main">
                         Building Scalable <span class="gradient">Backends</span> & Fluid <span class="gradient">Mobile</span> Apps.
@@ -41,15 +46,15 @@
                     </p>
                     <div class="hero-actions">
                         <button class="btn-primary" onclick="scrollToSection('projects')">
-                            Explore Projects <i class="fa-solid fa-arrow-down"></i>
+                            Explore Projects &nbsp;<i class="fa-solid fa-arrow-down"></i>
                         </button>
                         <button class="btn-secondary" onclick="scrollToSection('contact')">
-                            Get In Touch <i class="fa-solid fa-envelope"></i>
+                            Get In Touch &nbsp;<i class="fa-solid fa-envelope"></i>
                         </button>
                     </div>
                 </div>
-                <div class="hero-right">
-                    <div class="avatar-card">
+                <div class="hero-right reveal delay-2">
+                    <div class="avatar-card hover-glow">
                         <div class="avatar-img-wrapper">
                             <img src="coder_avatar.png" alt="RamXCat Avatar Silhouette">
                         </div>
@@ -67,19 +72,19 @@
         <!-- Metrics Banner Section -->
         <section class="metrics-section">
             <div class="metrics-grid">
-                <div class="metric-card">
+                <div class="metric-card reveal delay-1">
                     <div class="metric-number">15+</div>
                     <div class="metric-label">Repositories Created</div>
                 </div>
-                <div class="metric-card">
+                <div class="metric-card reveal delay-2">
                     <div class="metric-number">3+</div>
                     <div class="metric-label">Years of Development</div>
                 </div>
-                <div class="metric-card">
+                <div class="metric-card reveal delay-3">
                     <div class="metric-number">6+</div>
                     <div class="metric-label">Tech Stacks Mastered</div>
                 </div>
-                <div class="metric-card">
+                <div class="metric-card reveal delay-4">
                     <div class="metric-number">100%</div>
                     <div class="metric-label">Commitment to Security</div>
                 </div>
@@ -88,10 +93,12 @@
 
         <!-- About Me Section -->
         <section id="about">
-            <span class="section-badge">Profile Identity</span>
-            <h2 class="section-title">About <span class="gradient-text">RamXCat</span></h2>
+            <div class="reveal">
+                <span class="section-badge">Profile Identity</span>
+                <h2 class="section-title">About <span class="gradient-text">RamXCat</span></h2>
+            </div>
             <div class="about-wrapper">
-                <div class="about-left">
+                <div class="about-left reveal">
                     <p>
                         I am a full-stack engineer and native Android developer who is passionate about creating clean, high-performance systems and utilities that simplify workflows, secure user endpoints, and optimize data channels. 
                     </p>
@@ -99,7 +106,7 @@
                         My experience bridges low-level system design and high-end interactive application interfaces. Whether designing Spring Boot backend schemas, structuring sockets for remote host control applications, or setting up honeypots to profile cyber attacks, my goal is always to deliver robust, production-ready code.
                     </p>
                 </div>
-                <div class="about-right">
+                <div class="about-right reveal delay-2">
                     <div class="about-info-item">
                         <span class="about-info-label">Current Role:</span>
                         <span class="about-info-value">Systems & App Developer</span>
@@ -118,12 +125,14 @@
 
         <!-- Skills Section -->
         <section id="skills">
-            <span class="section-badge">Capabilities</span>
-            <h2 class="section-title">Technical <span class="gradient-text">Matrix</span></h2>
+            <div class="reveal">
+                <span class="section-badge">Capabilities</span>
+                <h2 class="section-title">Technical <span class="gradient-text">Matrix</span></h2>
+            </div>
             <div class="skills-grid">
                 
                 <!-- Category 1: Backend -->
-                <div class="skills-category-card">
+                <div class="skills-category-card reveal delay-1">
                     <h3 class="skills-category-title"><i class="fa-solid fa-server"></i> Backend Engineering</h3>
                     <div class="skills-list">
                         <div class="skill-item">
@@ -157,7 +166,7 @@
                 </div>
 
                 <!-- Category 2: Mobile -->
-                <div class="skills-category-card">
+                <div class="skills-category-card reveal delay-2">
                     <h3 class="skills-category-title"><i class="fa-solid fa-mobile-screen-button"></i> Mobile & Clients</h3>
                     <div class="skills-list">
                         <div class="skill-item">
@@ -191,7 +200,7 @@
                 </div>
 
                 <!-- Category 3: Infrastructure -->
-                <div class="skills-category-card">
+                <div class="skills-category-card reveal delay-3">
                     <h3 class="skills-category-title"><i class="fa-solid fa-cubes"></i> Infra & Platforms</h3>
                     <div class="skills-list">
                         <div class="skill-item">
@@ -229,12 +238,14 @@
 
         <!-- Projects Showcase -->
         <section id="projects">
-            <span class="section-badge">Showcase</span>
-            <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            <div class="reveal">
+                <span class="section-badge">Showcase</span>
+                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            </div>
             <div class="projects-grid">
                 
                 <!-- Project 1 -->
-                <div class="project-card">
+                <div class="project-card reveal delay-1">
                     <div class="project-img-wrapper">
                         <img src="connecto_banner.png" alt="Connecto Project Banner">
                         <div class="project-overlay"></div>
@@ -249,7 +260,7 @@
                         <p class="project-desc">A remote host administrator dashboard and control utility running via secure Android connection streams.</p>
                         <div class="project-footer">
                             <a href="https://github.com/RamXCat/Connecto" target="_blank" class="project-link">
-                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                Source Code &nbsp;<i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                             <span class="project-status">
                                 <span class="project-status-dot"></span> Active
@@ -259,7 +270,7 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card">
+                <div class="project-card reveal delay-2">
                     <div class="project-img-wrapper">
                         <img src="portfolio_banner.png" alt="Developer Portfolio Banner">
                         <div class="project-overlay"></div>
@@ -274,7 +285,7 @@
                         <p class="project-desc">This responsive dark portfolio site, designed to showcase system services and core competencies.</p>
                         <div class="project-footer">
                             <a href="https://github.com/RamXCat/portfolio-terminal" target="_blank" class="project-link">
-                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                Source Code &nbsp;<i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                             <span class="project-status">
                                 <span class="project-status-dot"></span> Live
@@ -284,7 +295,7 @@
                 </div>
 
                 <!-- Project 3 -->
-                <div class="project-card">
+                <div class="project-card reveal delay-1">
                     <div class="project-img-wrapper">
                         <img src="waste_banner.png" alt="Waste Collection Banner">
                         <div class="project-overlay"></div>
@@ -299,7 +310,7 @@
                         <p class="project-desc">A database-driven community platform facilitating smart pickup and optimization scheduling requests.</p>
                         <div class="project-footer">
                             <a href="https://github.com/RamXCat/waste-collection-website" target="_blank" class="project-link">
-                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                Source Code &nbsp;<i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                             <span class="project-status">
                                 <span class="project-status-dot"></span> Stable
@@ -309,7 +320,7 @@
                 </div>
 
                 <!-- Project 4 -->
-                <div class="project-card">
+                <div class="project-card reveal delay-2">
                     <div class="project-img-wrapper">
                         <img src="honeypot_banner.png" alt="Honeypot Dashboard Banner">
                         <div class="project-overlay"></div>
@@ -324,7 +335,7 @@
                         <p class="project-desc">A real-time telemetry log consumer, threat level aggregator, and map visualizer for SSH honeypots.</p>
                         <div class="project-footer">
                             <a href="https://github.com/RamXCat" target="_blank" class="project-link">
-                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                Source Code &nbsp;<i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                             <span class="project-status">
                                 <span class="project-status-dot"></span> Active
@@ -338,7 +349,7 @@
 
         <!-- Contact Section -->
         <section id="contact">
-            <div class="contact-card">
+            <div class="contact-card reveal">
                 <div class="contact-left">
                     <h3>Get in touch</h3>
                     <p>
@@ -381,6 +392,7 @@
 
     <!-- Animations Engine -->
     <script>
+        const header = document.getElementById('main-header');
         const headerNavLinks = document.querySelectorAll('#header-nav a');
         const sections = document.querySelectorAll('section');
 
@@ -396,8 +408,16 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Active link tracking on scroll
+        // Active link tracking on scroll & Header height adjust
         window.addEventListener('scroll', () => {
+            // Header scroll effect
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Section scroll highlights
             let current = '';
             const scrollPos = window.scrollY + 120;
 
@@ -415,15 +435,6 @@
                     link.classList.add('active');
                 }
             });
-
-            // Animate skills bar charts
-            const skillsSection = document.getElementById('skills');
-            if (skillsSection) {
-                const triggerPoint = skillsSection.offsetTop - window.innerHeight + 150;
-                if (window.scrollY > triggerPoint) {
-                    animateSkills();
-                }
-            }
         });
 
         // Trigger navigation link clicks
@@ -435,7 +446,40 @@
             });
         });
 
-        // Animate progress bars
+        // Spotlight mouse tracker for premium card animations
+        const cards = document.querySelectorAll('.avatar-card, .metric-card, .skills-category-card, .project-card, .contact-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Scroll reveal intersection observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger skills progress bar animation when skills container is revealed
+                    if (entry.target.id === 'skills' || entry.target.closest('#skills')) {
+                        animateSkills();
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Animate skills progress bars
         let skillsAnimated = false;
         function animateSkills() {
             if (skillsAnimated) return;
