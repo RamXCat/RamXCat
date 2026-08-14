@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RamXCat | Professional Portfolio Terminal</title>
-    <!-- Fonts and Icons -->
+    <title>RamXCat | Full-Stack & Android Systems Engineer</title>
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,998 +14,438 @@
     <header>
         <div class="logo" onclick="scrollToTop()">
             <div class="logo-dot"></div>
-            <span>RAMXCAT_DEV</span>
+            <span>RAMXCAT</span>
         </div>
         <nav class="header-nav" id="header-nav">
-            <a href="#about-me" onclick="navigateToSection(event, 'about-me')" class="active">#ABOUT-ME</a>
-            <a href="#skills" onclick="navigateToSection(event, 'skills')">#SKILLS</a>
-            <a href="#projects" onclick="navigateToSection(event, 'projects')">#PROJECTS</a>
-            <a href="#contact" onclick="navigateToSection(event, 'contact')">#CONTACT</a>
+            <a href="#about" class="active">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
         </nav>
-        <div class="header-controls">
-            <button class="audio-toggle-btn" id="audio-btn" onclick="toggleAudio()">
-                <i class="fa-solid fa-volume-xmark"></i> AUDIO: OFF
-            </button>
-            <button class="icon-btn active" id="terminal-toggle" onclick="toggleTerminal()" title="Toggle Terminal">
-                <i class="fa-solid fa-terminal"></i>
-            </button>
-        </div>
+        <button class="header-cta" onclick="scrollToSection('contact')">Let's Talk</button>
     </header>
 
-    <!-- Workspace Container -->
-    <div class="workspace" id="workspace-container">
+    <!-- Main Container -->
+    <main>
         
-        <!-- Sidebar Quick Links -->
-        <aside class="sidebar">
-            <div class="sidebar-top">
-                <button class="icon-btn" onclick="scrollToTop()" title="Go to Top">
-                    <i class="fa-solid fa-house"></i>
-                </button>
-                <div class="sidebar-divider"></div>
-                <button class="icon-btn" onclick="triggerTerminalNav('about-me')" title="About Me">
-                    <i class="fa-solid fa-user"></i>
-                </button>
-                <button class="icon-btn" onclick="triggerTerminalNav('skills')" title="Skills Capabilities">
-                    <i class="fa-solid fa-gears"></i>
-                </button>
-                <button class="icon-btn" onclick="triggerTerminalNav('projects')" title="Projects Registry">
-                    <i class="fa-solid fa-code"></i>
-                </button>
-                <button class="icon-btn" onclick="triggerTerminalNav('contact')" title="Contact System">
-                    <i class="fa-solid fa-envelope"></i>
-                </button>
-            </div>
-            <div class="sidebar-bottom">
-                <button class="icon-btn" onclick="triggerCyberHack()" title="Breach Mainframe Game">
-                    <i class="fa-solid fa-spider"></i>
-                </button>
-                <div class="sidebar-divider"></div>
-                <a href="https://github.com/RamXCat" target="_blank" class="icon-btn" title="GitHub Profile">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-            </div>
-        </aside>
-
-        <!-- Left Scrollable Portfolio Section -->
-        <main class="left-panel" id="scroll-panel" onscroll="handlePanelScroll()">
-            
-            <!-- Hero / Welcome Section -->
-            <section id="hero" style="min-height: 80vh; display: flex; align-items: center;">
-                <div class="hero-content">
-                    <span class="hero-greet">system_init_success //</span>
-                    <h1 class="hero-title">
-                        RamXCat is a <br>
-                        <span class="highlight">Java Full Stack</span><br>
-                        Developer.
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-wrapper">
+                <div class="hero-left">
+                    <span class="section-badge">Full-Stack Engineer</span>
+                    <h1 class="hero-title-main">
+                        Building Scalable <span class="gradient">Backends</span> & Fluid <span class="gradient">Mobile</span> Apps.
                     </h1>
-                    <p class="hero-bio">
-                        SpringBoot in code. Spring sleep? Lmao. I build backends that survive nuclear war and frontends that look like they cost a kidney... My sleep cycle died in 2023 and nobody told me.
+                    <p class="hero-desc">
+                        Passionate software developer specializing in robust Java/Spring Boot microservices, high-performance Android SDK development, and secure system utilities.
                     </p>
-                    <div class="hero-buttons">
-                        <button class="btn-primary" onclick="triggerTerminalNav('contact')">
-                            CONTACT ME <i class="fa-solid fa-arrow-right"></i>
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="scrollToSection('projects')">
+                            Explore Projects <i class="fa-solid fa-arrow-down"></i>
                         </button>
-                        <a href="https://github.com/RamXCat" target="_blank" class="btn-secondary">
-                            EXPLORE GITHUB <i class="fa-brands fa-github"></i>
-                        </a>
-                    </div>
-                    <div class="hero-footer">
-                        <div class="status-ticker">
-                            <div class="status-dot"></div>
-                            <span>Currently working on Portfolio</span>
-                        </div>
+                        <button class="btn-secondary" onclick="scrollToSection('contact')">
+                            Get In Touch <i class="fa-solid fa-envelope"></i>
+                        </button>
                     </div>
                 </div>
-            </section>
-
-            <!-- About Me Section -->
-            <section id="about-me">
-                <span class="section-tag">/identity</span>
-                <h2 class="section-title">ADMIN_PROFILE</h2>
-                <div class="about-grid">
-                    <div class="about-text">
-                        <p>
-                            I am a Full-Stack and Android developer focused on building interactive, high-fidelity systems, clean CLI interfaces, and robust system utilities. Currently engineering modern applications to solve local community issues and profile network metrics.
-                        </p>
-                        <p>
-                            I enjoy bridging the gap between low-level terminal operations and high-end interactive UI design. My coding philosophy revolves around building tools that simplify complex tasks, protect user data, and empower developers with intuitive interfaces.
-                        </p>
-                        <div class="about-card">
-                            <div class="about-info-row">
-                                <span class="about-info-label">ROLE:</span>
-                                <span class="about-info-val">Full-Stack & Android Systems Developer</span>
-                            </div>
-                            <div class="about-info-row">
-                                <span class="about-info-label">ORIGIN:</span>
-                                <span class="about-info-val">India</span>
-                            </div>
-                            <div class="about-info-row">
-                                <span class="about-info-label">FOCUS:</span>
-                                <span class="about-info-val">CLI Architectures & Secure Infrastructures</span>
-                            </div>
-                            <div class="about-info-row">
-                                <span class="about-info-label">STATUS:</span>
-                                <span class="about-info-val">Seeking high-impact professional projects</span>
-                            </div>
+                <div class="hero-right">
+                    <div class="avatar-card">
+                        <div class="avatar-img-wrapper">
+                            <img src="coder_avatar.png" alt="RamXCat Avatar Silhouette">
                         </div>
-                    </div>
-                    <div style="position: relative;">
-                        <div class="profile-grid-dots"></div>
-                        <div class="profile-avatar-container">
-                            <img src="coder_avatar.png" alt="RamXCat profile silhouette">
+                        <h2 class="avatar-name">RamXCat</h2>
+                        <p class="avatar-role">Systems & Apps Developer</p>
+                        <div class="avatar-status">
+                            <div class="avatar-status-dot"></div>
+                            <span>Available for Collaboration</span>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills">
-                <span class="section-tag">/capabilities</span>
-                <h2 class="section-title">SYSTEMS_MATRIX</h2>
-                <div class="skills-container">
-                    
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">Kotlin / Android SDK</span>
-                            <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="90%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">Java / Spring Boot</span>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">TypeScript / JS</span>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="80%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">Python / Flask</span>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="80%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">Docker / Linux Shell</span>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="85%"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            <span class="skill-name">PHP / MySQL</span>
-                            <span class="skill-percent">75%</span>
-                        </div>
-                        <div class="skill-bar-bg">
-                            <div class="skill-bar-fill" data-percent="75%"></div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section id="projects">
-                <span class="section-tag">/repository-cluster</span>
-                <h2 class="section-title">ACTIVE_PROJECTS</h2>
-                <div class="projects-grid">
-                    
-                    <!-- Project 1 -->
-                    <div class="project-card">
-                        <div class="project-banner">
-                            <img src="connecto_banner.png" alt="Connecto dashboard banner">
-                            <div class="project-banner-overlay"></div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-tags">
-                                <span class="project-tag">Kotlin</span>
-                                <span class="project-tag">Android</span>
-                                <span class="project-tag">Socket</span>
-                            </div>
-                            <h3 class="project-title">CONNECTO</h3>
-                            <p class="project-desc">Remote laptop controller via Android phone client. Allows secure start, shutdown, locking, and system metric monitoring.</p>
-                            <div class="project-footer">
-                                <a href="https://github.com/RamXCat/Connecto" target="_blank" class="project-link project-link-primary">
-                                    SOURCE <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                                <span class="project-link project-link-secondary">● Active</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2 -->
-                    <div class="project-card">
-                        <div class="project-banner">
-                            <img src="portfolio_banner.png" alt="Portfolio banner">
-                            <div class="project-banner-overlay"></div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-tags">
-                                <span class="project-tag">TypeScript</span>
-                                <span class="project-tag">HTML/CSS</span>
-                                <span class="project-tag">Shell</span>
-                            </div>
-                            <h3 class="project-title">PORTFOLIO_TERMINAL</h3>
-                            <p class="project-desc">Interactive CLI-style developer profile and dashboard showcasing full-stack infrastructure and dynamic visual screensavers.</p>
-                            <div class="project-footer">
-                                <a href="https://github.com/RamXCat/portfolio-terminal" target="_blank" class="project-link project-link-primary">
-                                    SOURCE <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                                <span class="project-link project-link-secondary">● Online</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3 -->
-                    <div class="project-card">
-                        <div class="project-banner">
-                            <img src="waste_banner.png" alt="Waste platform banner">
-                            <div class="project-banner-overlay"></div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-tags">
-                                <span class="project-tag">PHP</span>
-                                <span class="project-tag">MySQL</span>
-                                <span class="project-tag">CivicTech</span>
-                            </div>
-                            <h3 class="project-title">WASTE_MANAGEMENT</h3>
-                            <p class="project-desc">Civic utility platform designed to coordinate and optimize community waste, garbage, and recycling requests in real-time.</p>
-                            <div class="project-footer">
-                                <a href="https://github.com/RamXCat/waste-collection-website" target="_blank" class="project-link project-link-primary">
-                                    SOURCE <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                                <span class="project-link project-link-secondary">● Loaded</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 4 -->
-                    <div class="project-card">
-                        <div class="project-banner">
-                            <img src="honeypot_banner.png" alt="Cowrie honeypot dashboard banner">
-                            <div class="project-banner-overlay"></div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-tags">
-                                <span class="project-tag">Python</span>
-                                <span class="project-tag">Flask</span>
-                                <span class="project-tag">Security</span>
-                            </div>
-                            <h3 class="project-title">COWRIE_DASHBOARD</h3>
-                            <p class="project-desc">Adaptive SSH honeypot logging analyst, IP geolocator, and real-time visualization interface suite profiling cyber intrusions.</p>
-                            <div class="project-footer">
-                                <a href="https://github.com/RamXCat" target="_blank" class="project-link project-link-primary">
-                                    SOURCE <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                                <span class="project-link project-link-secondary">● Active</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" style="margin-bottom: 80px;">
-                <span class="section-tag">/telemetry</span>
-                <h2 class="section-title">COMMUNICATION_CHANNELS</h2>
-                <div class="contact-container">
-                    <div class="contact-info">
-                        <h3>Secure Node Link</h3>
-                        <p>Feel free to ping me for job opportunities, open-source projects collaboration, or just simple tech talk. The system standard connection interface is ready.</p>
-                        <p>Available on global nodes.</p>
-                    </div>
-                    <div class="contact-links">
-                        <a href="mailto:your-email@example.com" class="contact-item">
-                            <i class="fa-solid fa-envelope contact-icon"></i>
-                            <span class="contact-item-val">your-email@example.com</span>
-                        </a>
-                        <a href="https://github.com/RamXCat" target="_blank" class="contact-item">
-                            <i class="fa-brands fa-github contact-icon"></i>
-                            <span class="contact-item-val">github.com/RamXCat</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Right Terminal Pane -->
-        <div class="right-panel" id="terminal-pane">
-            <div class="terminal-window">
-                <!-- Titlebar -->
-                <div class="terminal-titlebar">
-                    <div class="terminal-title">
-                        <i class="fa-solid fa-terminal terminal-title-icon"></i>
-                        <span>Syntax_Terminal.sh</span>
-                    </div>
-                    <div class="terminal-actions">
-                        <button class="terminal-action-btn terminal-action-close" onclick="toggleTerminal()" title="Collapse pane"></button>
-                    </div>
-                </div>
-                <!-- Body -->
-                <div class="terminal-body" id="terminal-body-el">
-                    <!-- Matrix Digital Rain Screen Canvas -->
-                    <canvas id="matrix-canvas"></canvas>
-
-                    <div class="terminal-output" id="terminal-output">
-                        <div class="terminal-line dim">RAMXCAT [Version 2.7.0]</div>
-                        <div class="terminal-line dim">(c) 2026 RamXCat Secure Systems. All rights reserved.</div>
-                        <br>
-                        <div class="terminal-line">Welcome, administrator. Type <span class="terminal-line system">/help</span> to list available commands, <span class="terminal-line system">/skills</span> to show capabilities, or <span class="terminal-line system">#retro</span> to shift theme variables.</div>
-                        <br>
-                    </div>
-
-                    <div class="terminal-input-line">
-                        <span class="terminal-prompt">ramxcat@arch-core:~$</span>
-                        <input type="text" class="terminal-cmd-input" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
-                        <span class="terminal-cursor" id="terminal-cursor"></span>
                     </div>
                 </div>
             </div>
-            <div class="crt-overlay"></div>
+        </section>
+
+        <!-- Metrics Banner Section -->
+        <section class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">15+</div>
+                    <div class="metric-label">Repositories Created</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3+</div>
+                    <div class="metric-label">Years of Development</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">6+</div>
+                    <div class="metric-label">Tech Stacks Mastered</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-label">Commitment to Security</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about">
+            <span class="section-badge">Profile Identity</span>
+            <h2 class="section-title">About <span class="gradient-text">RamXCat</span></h2>
+            <div class="about-wrapper">
+                <div class="about-left">
+                    <p>
+                        I am a full-stack engineer and native Android developer who is passionate about creating clean, high-performance systems and utilities that simplify workflows, secure user endpoints, and optimize data channels. 
+                    </p>
+                    <p>
+                        My experience bridges low-level system design and high-end interactive application interfaces. Whether designing Spring Boot backend schemas, structuring sockets for remote host control applications, or setting up honeypots to profile cyber attacks, my goal is always to deliver robust, production-ready code.
+                    </p>
+                </div>
+                <div class="about-right">
+                    <div class="about-info-item">
+                        <span class="about-info-label">Current Role:</span>
+                        <span class="about-info-value">Systems & App Developer</span>
+                    </div>
+                    <div class="about-info-item">
+                        <span class="about-info-label">Location:</span>
+                        <span class="about-info-value">India</span>
+                    </div>
+                    <div class="about-info-item">
+                        <span class="about-info-label">Main Focus:</span>
+                        <span class="about-info-value">API Design & Android Security</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <span class="section-badge">Capabilities</span>
+            <h2 class="section-title">Technical <span class="gradient-text">Matrix</span></h2>
+            <div class="skills-grid">
+                
+                <!-- Category 1: Backend -->
+                <div class="skills-category-card">
+                    <h3 class="skills-category-title"><i class="fa-solid fa-server"></i> Backend Engineering</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Java / Spring Boot</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Python / Flask</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">PHP / Node.js</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Mobile -->
+                <div class="skills-category-card">
+                    <h3 class="skills-category-title"><i class="fa-solid fa-mobile-screen-button"></i> Mobile & Clients</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Kotlin / Android SDK</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">TypeScript / JS</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Socket Programming</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Infrastructure -->
+                <div class="skills-category-card">
+                    <h3 class="skills-category-title"><i class="fa-solid fa-cubes"></i> Infra & Platforms</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Docker Containers</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Linux / Bash Scripting</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Relational Databases</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-percent="80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Showcase -->
+        <section id="projects">
+            <span class="section-badge">Showcase</span>
+            <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            <div class="projects-grid">
+                
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="connecto_banner.png" alt="Connecto Project Banner">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="project-tag">Kotlin</span>
+                            <span class="project-tag">Android</span>
+                            <span class="project-tag">Socket API</span>
+                        </div>
+                        <h3 class="project-title">Connecto Client</h3>
+                        <p class="project-desc">A remote host administrator dashboard and control utility running via secure Android connection streams.</p>
+                        <div class="project-footer">
+                            <a href="https://github.com/RamXCat/Connecto" target="_blank" class="project-link">
+                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <span class="project-status">
+                                <span class="project-status-dot"></span> Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="portfolio_banner.png" alt="Developer Portfolio Banner">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="project-tag">TypeScript</span>
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">Web Dev</span>
+                        </div>
+                        <h3 class="project-title">Interactive Portfolio</h3>
+                        <p class="project-desc">This responsive dark portfolio site, designed to showcase system services and core competencies.</p>
+                        <div class="project-footer">
+                            <a href="https://github.com/RamXCat/portfolio-terminal" target="_blank" class="project-link">
+                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <span class="project-status">
+                                <span class="project-status-dot"></span> Live
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="waste_banner.png" alt="Waste Collection Banner">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="project-tag">PHP</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Civic Tech</span>
+                        </div>
+                        <h3 class="project-title">Civic Waste Platform</h3>
+                        <p class="project-desc">A database-driven community platform facilitating smart pickup and optimization scheduling requests.</p>
+                        <div class="project-footer">
+                            <a href="https://github.com/RamXCat/waste-collection-website" target="_blank" class="project-link">
+                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <span class="project-status">
+                                <span class="project-status-dot"></span> Stable
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="honeypot_banner.png" alt="Honeypot Dashboard Banner">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Flask</span>
+                            <span class="project-tag">Honeypot</span>
+                        </div>
+                        <h3 class="project-title">Cowrie Threat Dashboard</h3>
+                        <p class="project-desc">A real-time telemetry log consumer, threat level aggregator, and map visualizer for SSH honeypots.</p>
+                        <div class="project-footer">
+                            <a href="https://github.com/RamXCat" target="_blank" class="project-link">
+                                Source Code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <span class="project-status">
+                                <span class="project-status-dot"></span> Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-card">
+                <div class="contact-left">
+                    <h3>Get in touch</h3>
+                    <p>
+                        I am always open to exploring full-stack engineering roles, systems tooling opportunities, or collaboration on open-source packages. Drop a message!
+                    </p>
+                </div>
+                <div class="contact-right">
+                    <a href="mailto:your-email@example.com" class="contact-link-item">
+                        <div class="contact-icon-box">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-details-label">Direct Node</span>
+                            <span class="contact-details-value">your-email@example.com</span>
+                        </div>
+                    </a>
+                    <a href="https://github.com/RamXCat" target="_blank" class="contact-link-item">
+                        <div class="contact-icon-box">
+                            <i class="fa-brands fa-github"></i>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-details-label">GitHub Node</span>
+                            <span class="contact-details-value">github.com/RamXCat</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-copy">&copy; 2026 RamXCat. Built with premium dark SaaS parameters.</div>
+        <div class="footer-links">
+            <a href="#hero">Back to Top</a>
+            <a href="https://github.com/RamXCat" target="_blank">GitHub</a>
         </div>
+    </footer>
 
-    </div>
-
-    <!-- Scripting Engine -->
+    <!-- Animations Engine -->
     <script>
-        const scrollPanel = document.getElementById('scroll-panel');
-        const headerNav = document.getElementById('header-nav');
-        const workspace = document.getElementById('workspace-container');
-        const termToggle = document.getElementById('terminal-toggle');
-        const termInput = document.getElementById('terminal-input');
-        const termOutput = document.getElementById('terminal-output');
-        const termBody = document.getElementById('terminal-body-el');
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        const ctx = matrixCanvas.getContext('2d');
+        const headerNavLinks = document.querySelectorAll('#header-nav a');
+        const sections = document.querySelectorAll('section');
 
-        let audioEnabled = false;
-        let audioCtx = null;
-        let isMatrixActive = false;
-        let activeGame = null; // 'snake', 'hack'
-
-        // Skill percentage animation trigger flag
-        let skillsAnimated = false;
-
-        // Command Registry
-        const COMMANDS = {
-            '/help': 'Show terminal capabilities and available modules',
-            '/about': 'Print personal identity card and background details',
-            '/skills': 'Query technical competency stacks and render matrix',
-            '/projects': 'Scan and list the repositories of the active cluster',
-            '/contact': 'Display secure telemetry contact routes',
-            '/snake': 'Initialize retro snake arcade compiler',
-            '/hack': 'Engage security intrusion bypass simulation',
-            '/matrix': 'Start cyber digital rain canvas screen saver',
-            '/clear': 'Flush output buffer stream',
-            '/exit': 'Redirect to base GitHub user profile page',
-            '#default': 'Shifts visual styling theme to default Purple',
-            '#urbane': 'Shifts visual styling theme to professional Green',
-            '#retro': 'Shifts visual styling theme to retro Pink/Orange',
-            '#bw': 'Shifts visual styling theme to minimal Monochrome'
-        };
-
-        const PROJECTS = [
-            { name: 'Connecto', lang: 'Kotlin / Android', desc: 'Remote laptop controller via Android.', url: 'https://github.com/RamXCat/Connecto' },
-            { name: 'Portfolio Terminal', lang: 'TypeScript / Shell', desc: 'Interactive developer terminal interface portfolio.', url: 'https://github.com/RamXCat/portfolio-terminal' },
-            { name: 'Waste Management', lang: 'PHP / MySQL', desc: 'Community recycling and pickup coordination platform.', url: 'https://github.com/RamXCat/waste-collection-website' },
-            { name: 'Cowrie Dashboard', lang: 'Python / Flask', desc: 'Real-time honeypot analytics and geolocator map.', url: 'https://github.com/RamXCat' }
-        ];
-
-        // Synthesize Beeps
-        function playBeep(freq, duration, type = 'sine') {
-            if (!audioEnabled) return;
-            try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                
-                osc.type = type;
-                osc.frequency.value = freq;
-                
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + duration);
-                
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) {
-                console.error("Synthesizer error", e);
+        // Smooth scrolling navigation handler
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
             }
-        }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const btn = document.getElementById('audio-btn');
-            if (audioEnabled) {
-                btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> AUDIO: ON';
-                playBeep(440, 0.1);
-            } else {
-                btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> AUDIO: OFF';
-            }
-        }
-
-        // Keystroke Beeps
-        termInput.addEventListener('keydown', (e) => {
-            if (e.key.length === 1) {
-                playBeep(650 + Math.random() * 150, 0.03, 'triangle');
-            } else if (e.key === 'Backspace') {
-                playBeep(420, 0.03, 'triangle');
-            }
-        });
-
-        termInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = termInput.value;
-                termInput.value = '';
-                executeCommand(cmd);
-            }
-        });
-
-        // Focus prompt on terminal screen clicks
-        termBody.addEventListener('click', (e) => {
-            if (!isMatrixActive && activeGame === null && e.target !== termInput) {
-                termInput.focus();
-            }
-        });
-
-        // Trigger section scrolling and terminal logging synchronously
-        function navigateToSection(e, sectionId) {
-            if (e) e.preventDefault();
-            
-            // Expand terminal if collapsed
-            if (workspace.classList.contains('terminal-collapsed')) {
-                toggleTerminal();
-            }
-
-            // Scroll panel
-            const targetEl = document.getElementById(sectionId);
-            if (targetEl) {
-                scrollPanel.scrollTo({
-                    top: targetEl.offsetTop - 30,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Sync Nav Links classes
-            updateActiveNavLink(sectionId);
-
-            // Execute corresponding terminal command silently/visually
-            const cmdName = '/' + (sectionId === 'about-me' ? 'about' : sectionId);
-            autoTypeAndRun(cmdName);
-        }
-
-        function triggerTerminalNav(sectionId) {
-            navigateToSection(null, sectionId);
-        }
-
-        // Auto type command in terminal simulation
-        function autoTypeAndRun(commandText) {
-            termInput.value = '';
-            let idx = 0;
-            playBeep(800, 0.05);
-
-            function typeChar() {
-                if (idx < commandText.length) {
-                    termInput.value += commandText[idx++];
-                    playBeep(700 + Math.random() * 100, 0.02, 'triangle');
-                    setTimeout(typeChar, 40);
-                } else {
-                    setTimeout(() => {
-                        const cmd = termInput.value;
-                        termInput.value = '';
-                        executeCommand(cmd);
-                    }, 120);
-                }
-            }
-            typeChar();
-        }
-
-        function triggerCyberHack() {
-            if (workspace.classList.contains('terminal-collapsed')) {
-                toggleTerminal();
-            }
-            autoTypeAndRun('/hack');
-        }
-
-        function updateActiveNavLink(sectionId) {
-            const links = headerNav.querySelectorAll('a');
-            links.forEach(l => {
-                if (l.getAttribute('href') === '#' + sectionId) {
-                    l.classList.add('active');
-                } else {
-                    l.classList.remove('active');
-                }
-            });
-        }
-
-        // Scroll event to activate nav bar indicators and trigger skill progress bars
-        function handlePanelScroll() {
-            const sections = ['about-me', 'skills', 'projects', 'contact'];
-            const scrollPos = scrollPanel.scrollTop + 150;
-
-            // Trigger Skill Progress Animations
-            const skillsSec = document.getElementById('skills');
-            if (skillsSec && !skillsAnimated) {
-                const skillsTop = skillsSec.offsetTop - scrollPanel.clientHeight + 100;
-                if (scrollPanel.scrollTop > skillsTop) {
-                    animateSkillBars();
-                }
-            }
-
-            for (let secId of sections) {
-                const el = document.getElementById(secId);
-                if (el) {
-                    const top = el.offsetTop - 50;
-                    const bottom = top + el.clientHeight;
-                    if (scrollPos >= top && scrollPos < bottom) {
-                        updateActiveNavLink(secId);
-                        break;
-                    }
-                }
-            }
-        }
-
-        function animateSkillBars() {
-            skillsAnimated = true;
-            const fills = document.querySelectorAll('.skill-bar-fill');
-            fills.forEach(bar => {
-                const pct = bar.getAttribute('data-percent');
-                bar.style.width = pct;
-            });
         }
 
         function scrollToTop() {
-            scrollPanel.scrollTo({ top: 0, behavior: 'smooth' });
-            autoTypeAndRun('/clear');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Toggle Terminal Pane Collapse state
-        function toggleTerminal() {
-            workspace.classList.toggle('terminal-collapsed');
-            termToggle.classList.toggle('active');
-            playBeep(500, 0.08);
-            setTimeout(() => {
-                if (!workspace.classList.contains('terminal-collapsed')) {
-                    termInput.focus();
+        // Active link tracking on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPos = window.scrollY + 120;
+
+            sections.forEach(s => {
+                const top = s.offsetTop;
+                const height = s.clientHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    current = s.getAttribute('id');
                 }
-            }, 300);
-        }
-
-        // Print lines to terminal output buffer
-        function printTermLine(text, styleClass = '') {
-            const div = document.createElement('div');
-            div.className = `terminal-line ${styleClass}`;
-            div.innerHTML = text;
-            termOutput.appendChild(div);
-            termBody.scrollTop = termBody.scrollHeight;
-        }
-
-        // Command parser
-        function executeCommand(rawCmd) {
-            const trimmed = rawCmd.trim();
-            if (!trimmed) return;
-
-            printTermLine(`ramxcat@arch-core:~$ ${trimmed}`, 'system');
-            playBeep(320, 0.08);
-
-            const parts = trimmed.split(/\s+/);
-            const cmd = parts[0].toLowerCase();
-            const args = parts.slice(1);
-
-            // Normalize commands to match reference site style (/cmd, #theme, or original name)
-            if (cmd === '/help' || cmd === 'help') {
-                printHelp();
-            } else if (cmd === '/about' || cmd === 'about') {
-                printAbout();
-                scrollSectionDirect('about-me');
-            } else if (cmd === '/skills' || cmd === 'skills') {
-                printSkills();
-                scrollSectionDirect('skills');
-                setTimeout(animateSkillBars, 150);
-            } else if (cmd === '/projects' || cmd === 'projects') {
-                printProjects();
-                scrollSectionDirect('projects');
-            } else if (cmd === '/contact' || cmd === 'contact' || cmd === '/network' || cmd === 'network') {
-                printContact();
-                scrollSectionDirect('contact');
-            } else if (cmd === '/snake' || cmd === 'snake') {
-                startSnakeGame();
-            } else if (cmd === '/hack' || cmd === 'hack') {
-                startHackGame();
-            } else if (cmd === '/matrix' || cmd === 'matrix') {
-                startMatrixRain();
-            } else if (cmd === '/clear' || cmd === 'clear') {
-                termOutput.innerHTML = '';
-            } else if (cmd === '/exit' || cmd === 'exit') {
-                printTermLine("Exiting connection state... Redirecting to parent profile node.");
-                setTimeout(() => {
-                    window.location.href = "https://github.com/RamXCat";
-                }, 1000);
-            } else if (cmd === '#default' || (cmd === 'theme' && args[0] === 'blue')) {
-                setTheme('default');
-            } else if (cmd === '#urbane' || (cmd === 'theme' && args[0] === 'green')) {
-                setTheme('urbane');
-            } else if (cmd === '#retro' || (cmd === 'theme' && args[0] === 'amber')) {
-                setTheme('retro');
-            } else if (cmd === '#bw' || (cmd === 'theme' && args[0] === 'bw')) {
-                setTheme('bw');
-            } else if (cmd === 'theme') {
-                printTermLine("Syntax: #default, #urbane, #retro, #bw or theme [green/amber/blue/bw]", "error");
-            } else {
-                playBeep(180, 0.2, 'sawtooth');
-                printTermLine(`Shell command not recognized: "${cmd}". Type '/help' for operational map.`, 'error');
-            }
-        }
-
-        function scrollSectionDirect(secId) {
-            const el = document.getElementById(secId);
-            if (el) {
-                scrollPanel.scrollTo({
-                    top: el.offsetTop - 30,
-                    behavior: 'smooth'
-                });
-                updateActiveNavLink(secId);
-            }
-        }
-
-        function printHelp() {
-            let outputText = '\nOperational commands:\n';
-            for (const [name, desc] of Object.entries(COMMANDS)) {
-                outputText += `  <span class="terminal-line system">${name.padEnd(12)}</span> - ${desc}\n`;
-            }
-            printTermLine(outputText);
-        }
-
-        function printAbout() {
-            const info = `
-========================================
-IDENTITY SPECIFICATION SHEET
-========================================
-User:       RamXCat
-Role:       Full-Stack & Android Systems Engineer
-Location:   India
-Focus:      Network architectures & utility APIs
-Motto:      "Empower interfaces, harden systems."
-`;
-            printTermLine(info);
-        }
-
-        function printSkills() {
-            let display = '\nQuerying hardware capability metrics:\n\n';
-            const skillsArr = [
-                { name: 'Kotlin/Android', val: 90 },
-                { name: 'Java/Spring', val: 85 },
-                { name: 'TypeScript/JS', val: 80 },
-                { name: 'Python/Flask', val: 80 },
-                { name: 'Docker/Linux', val: 85 }
-            ];
-            skillsArr.forEach(s => {
-                const filledCount = Math.round(s.val / 10);
-                const bar = '[' + '='.repeat(filledCount) + ' '.repeat(10 - filledCount) + ']';
-                display += `  ${s.name.padEnd(16)} : ${bar} ${s.val}%\n`;
             });
-            printTermLine(display);
-        }
 
-        function printProjects() {
-            let display = '\nScanning local cluster nodes:\n\n';
-            PROJECTS.forEach((p, idx) => {
-                display += `  [${idx}] <span class="terminal-line system">${p.name}</span> (${p.lang})\n`;
-                display += `      Desc: ${p.desc}\n`;
-                display += `      Node URL: <a href="${p.url}" target="_blank" style="color: inherit; text-decoration: underline;">${p.url}</a>\n\n`;
+            headerNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
             });
-            printTermLine(display);
-        }
 
-        function printContact() {
-            const contactMsg = `
-Secure connection addresses:
-  Email Node:   <a href="mailto:your-email@example.com" style="color:inherit; text-decoration:underline;">your-email@example.com</a>
-  GitHub Node:  <a href="https://github.com/RamXCat" target="_blank" style="color:inherit; text-decoration:underline;">github.com/RamXCat</a>
-`;
-            printTermLine(contactMsg);
-        }
-
-        function setTheme(theme) {
-            document.body.className = '';
-            if (theme !== 'default') {
-                document.body.classList.add('theme-' + theme);
-            }
-            printTermLine(`Terminal shifted core environment to: ${theme.toUpperCase()}`);
-            playBeep(880, 0.1);
-        }
-
-        // ==========================================
-        // RETRO SNAKE ARCADE GAME
-        // ==========================================
-        function startSnakeGame() {
-            activeGame = 'snake';
-            document.querySelector('.terminal-input-line').style.display = 'none';
-
-            const gameDiv = document.createElement('div');
-            gameDiv.className = 'game-board';
-            termOutput.appendChild(gameDiv);
-            termBody.scrollTop = termBody.scrollHeight;
-
-            const width = 22;
-            const height = 11;
-            let snake = [{x: 8, y: 5}, {x: 7, y: 5}, {x: 6, y: 5}];
-            let dx = 1;
-            let dy = 0;
-            let food = {x: 14, y: 5};
-            let score = 0;
-            let speed = 140;
-            let gameInterval = null;
-
-            function drawBoard() {
-                let board = '';
-                board += `<div class="game-header"><span>MODULE: RETRO-SNAKE</span><span>SCORE: ${score}</span></div>`;
-                board += '+'.padEnd(width + 1, '-') + '+\n';
-                
-                for (let y = 0; y < height; y++) {
-                    board += '|';
-                    for (let x = 0; x < width; x++) {
-                        if (snake.some(segment => segment.x === x && segment.y === y)) {
-                            board += 'O';
-                        } else if (food.x === x && food.y === y) {
-                            board += '*';
-                        } else {
-                            board += ' ';
-                        }
-                    }
-                    board += '|\n';
-                }
-                
-                board += '+'.padEnd(width + 1, '-') + '+\n';
-                board += '<div class="controls-info">Controls: WASD / Arrows. Esc to abort connection.</div>';
-                gameDiv.innerHTML = board;
-                termBody.scrollTop = termBody.scrollHeight;
-            }
-
-            function placeFood() {
-                while(true) {
-                    const fx = Math.floor(Math.random() * width);
-                    const fy = Math.floor(Math.random() * height);
-                    if (!snake.some(seg => seg.x === fx && seg.y === fy)) {
-                        food = {x: fx, y: fy};
-                        break;
-                    }
+            // Animate skills bar charts
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                const triggerPoint = skillsSection.offsetTop - window.innerHeight + 150;
+                if (window.scrollY > triggerPoint) {
+                    animateSkills();
                 }
             }
-
-            function update() {
-                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-
-                if (head.x < 0 || head.x >= width || head.y < 0 || head.y >= height ||
-                    snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-                    clearInterval(gameInterval);
-                    playBeep(120, 0.45, 'sawtooth');
-                    gameDiv.innerHTML += '<div style="color: #f87171; margin-top: 8px;">CORE PANIC: CRASHED. ESC to return.</div>';
-                    return;
-                }
-
-                snake.unshift(head);
-
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
-                    playBeep(880, 0.08, 'sine');
-                    placeFood();
-                } else {
-                    snake.pop();
-                }
-
-                drawBoard();
-            }
-
-            function handleInput(e) {
-                switch(e.key.toLowerCase()) {
-                    case 'w': case 'arrowup':
-                        if (dy === 0) { dx = 0; dy = -1; playBeep(580, 0.02); }
-                        break;
-                    case 's': case 'arrowdown':
-                        if (dy === 0) { dx = 0; dy = 1; playBeep(580, 0.02); }
-                        break;
-                    case 'a': case 'arrowleft':
-                        if (dx === 0) { dx = -1; dy = 0; playBeep(580, 0.02); }
-                        break;
-                    case 'd': case 'arrowright':
-                        if (dx === 0) { dx = 1; dy = 0; playBeep(580, 0.02); }
-                        break;
-                    case 'escape':
-                        quitSnake();
-                        break;
-                }
-                e.preventDefault();
-            }
-
-            function quitSnake() {
-                clearInterval(gameInterval);
-                document.removeEventListener('keydown', handleInput);
-                gameDiv.remove();
-                activeGame = null;
-                document.querySelector('.terminal-input-line').style.display = 'flex';
-                termInput.focus();
-                printTermLine("Snake compiler safely shut down.");
-                playBeep(440, 0.1);
-            }
-
-            document.addEventListener('keydown', handleInput);
-            gameInterval = setInterval(update, speed);
-            drawBoard();
-        }
-
-        // ==========================================
-        // CYBER MAINFRAME BREACH GAME
-        // ==========================================
-        function startHackGame() {
-            activeGame = 'hack';
-            document.querySelector('.terminal-input-line').style.display = 'none';
-
-            const gameDiv = document.createElement('div');
-            gameDiv.className = 'game-board';
-            termOutput.appendChild(gameDiv);
-            termBody.scrollTop = termBody.scrollHeight;
-
-            const words = ["FIREWALL", "SECURITY", "DATALINK", "MAINFRAME", "DATABASE", "PROTOCOL", "SYSLOGIN", "DECRYPTER", "KEYCHAIN"];
-            const secret = words[Math.floor(Math.random() * words.length)];
-            let attempts = 4;
-
-            function renderHackUI() {
-                let html = '<div class="game-header"><span>SYS_BREACH_VERIFICATION</span></div>';
-                html += `Attempts remaining: ${'■ '.repeat(attempts)}\n\n`;
-
-                words.forEach(w => {
-                    const noise = Math.floor(Math.random() * 9999).toString(16).toUpperCase().padStart(4, '0');
-                    html += `0x${noise}: <span class="hack-word" style="cursor: pointer; text-decoration: underline; color: var(--accent);" onclick="window.guessWord('${w}')">${w}</span>\n`;
-                });
-
-                html += '\n<div class="controls-info">Select correct decrypt bypass key. ESC to abort.</div>';
-                gameDiv.innerHTML = html;
-                termBody.scrollTop = termBody.scrollHeight;
-            }
-
-            window.guessWord = function(word) {
-                if (attempts <= 0) return;
-
-                if (word === secret) {
-                    playBeep(1000, 0.15);
-                    setTimeout(() => playBeep(1400, 0.25), 100);
-                    gameDiv.innerHTML = `
-                        <div style="color: var(--accent); font-weight: 600;">ACCESS GRANTED. HOST BYPASS SUCCESS.</div>
-                        <div style="margin-top: 5px;">Extracted key: MD5_SHA256_3b8a...</div>
-                        <div style="margin-top: 10px;">Press ESC to complete protocol.</div>
-                    `;
-                } else {
-                    attempts--;
-                    if (attempts <= 0) {
-                        playBeep(160, 0.45, 'sawtooth');
-                        gameDiv.innerHTML = `
-                            <div style="color: #f87171;">BREACH FAILED. LOCKOUT INITIATED.</div>
-                            <div style="margin-top: 10px;">Press ESC to exit system lockdown.</div>
-                        `;
-                    } else {
-                        let matches = 0;
-                        for (let i = 0; i < secret.length; i++) {
-                            if (word[i] === secret[i]) matches++;
-                        }
-                        playBeep(300, 0.15, 'sawtooth');
-                        alert(`Breach assessment: Likeness score = ${matches}/${secret.length}`);
-                        renderHackUI();
-                    }
-                }
-            };
-
-            function handleInput(e) {
-                if (e.key === 'Escape') {
-                    quitHack();
-                }
-            }
-
-            function quitHack() {
-                document.removeEventListener('keydown', handleInput);
-                window.guessWord = null;
-                gameDiv.remove();
-                activeGame = null;
-                document.querySelector('.terminal-input-line').style.display = 'flex';
-                termInput.focus();
-                printTermLine("Mainframe breach protocol terminated.");
-                playBeep(440, 0.1);
-            }
-
-            document.addEventListener('keydown', handleInput);
-            renderHackUI();
-        }
-
-        // ==========================================
-        // MATRIX DIGITAL RAIN SCREENSAVER
-        // ==========================================
-        function startMatrixRain() {
-            isMatrixActive = true;
-            matrixCanvas.style.display = 'block';
-            document.querySelector('.terminal-input-line').style.display = 'none';
-            termOutput.style.display = 'none';
-
-            matrixCanvas.width = termBody.clientWidth;
-            matrixCanvas.height = termBody.clientHeight;
-
-            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=<>#%&@";
-            const fontSize = 13;
-            const columns = matrixCanvas.width / fontSize;
-
-            const rainDrops = Array(Math.floor(columns)).fill(1);
-
-            function draw() {
-                if (!isMatrixActive) return;
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-                ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--accent');
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < rainDrops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                    if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = 0;
-                    }
-                    rainDrops[i]++;
-                }
-                requestAnimationFrame(draw);
-            }
-
-            draw();
-
-            const stopRain = () => {
-                isMatrixActive = false;
-                matrixCanvas.style.display = 'none';
-                document.querySelector('.terminal-input-line').style.display = 'flex';
-                termOutput.style.display = 'flex';
-                termInput.focus();
-                document.removeEventListener('keydown', stopRain);
-                document.removeEventListener('click', stopRain);
-                playBeep(440, 0.1);
-            };
-
-            setTimeout(() => {
-                document.addEventListener('keydown', stopRain);
-                document.addEventListener('click', stopRain);
-            }, 100);
-        }
-
-        // Trigger skill bars animation check on load in case it starts on screen
-        window.addEventListener('load', () => {
-            handlePanelScroll();
-            termInput.focus();
         });
+
+        // Trigger navigation link clicks
+        headerNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Animate progress bars
+        let skillsAnimated = false;
+        function animateSkills() {
+            if (skillsAnimated) return;
+            skillsAnimated = true;
+            const fills = document.querySelectorAll('.skill-bar-fill');
+            fills.forEach(f => {
+                const pct = f.getAttribute('data-percent');
+                f.style.width = pct;
+            });
+        }
     </script>
 </body>
 </html>
