@@ -1,13 +1,10 @@
 # ⚡ Full-Stack Developer • Systems Architect
-
 I'm Ram, a full-stack engineer and native mobile developer focused on scalable APIs, secure system utilities, and socket stream protocols.
-
 I build systems that:
 - Maintain lightweight, modular Spring Boot architectures
 - Optimize socket-stream connectivity for remote client telemetry
 - Integrate robust security practices (such as live honeypot monitoring)
 - Implement performant, stable databases
-
 Security first. Performance always.
 
 ## 🌱 Core Architectures
@@ -33,12 +30,5 @@ Security first. Performance always.
 - Passionate explorer of cybersecurity defenses and active honeypot metrics.
 - Builder of lightweight system tooling, not just high-level apps.
 - Committed to robust, readable, and highly maintainable documentation.
-
 I build for utility, structural security, and systems performance.
-
 ⚡ Crafted for systems efficiency
-
----
-
-### 🌐 Direct Node Link
-[GitHub Profile](https://github.com/RamXCat) • [Contact Email](mailto:your-email@example.com) • [Launch Live Portfolio](https://ramxcat.github.io/RamXCat/)
