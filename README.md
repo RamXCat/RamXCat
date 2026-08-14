@@ -47,8 +47,8 @@ I am a **Systems and Full-Stack Developer** focused on building high-performance
 ### 📊 Telemetry Metrics
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=RamXCat&show_icons=true&hide_border=true&bg_color=030712&title_color=6366f1&icon_color=6366f1&text_color=9ca3af&include_all_commits=true" height="150" alt="GitHub Stats"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=RamXCat&layout=compact&hide_border=true&bg_color=030712&title_color=6366f1&text_color=9ca3af&langs_count=6" height="150" alt="Top Languages"/>
+  <img src="https://github-stats-extended.vercel.app/api?username=RamXCat&show_icons=true&hide_border=true&bg_color=030712&title_color=6366f1&icon_color=6366f1&text_color=9ca3af&include_all_commits=true" height="150" alt="GitHub Stats"/>
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=RamXCat&layout=compact&hide_border=true&bg_color=030712&title_color=6366f1&text_color=9ca3af&langs_count=6" height="150" alt="Top Languages"/>
 </p>
 
 <div align="center">
